@@ -1,4 +1,5 @@
 import feedparser
+import pandas as pd
 
 
 class News:
@@ -36,3 +37,16 @@ for i in range(0, 10):
     usa_today.addArticle(the_title, "n/a", usa_today_rss['entries'][i]['links'][0]['href'])
 
 print(usa_today.articles)
+
+# spreadsheet = 'articles.xlsx'
+#
+# articles = pd.read_excel(spreadsheet)
+#
+# articles.head()
+
+data = {'Source': [[title for title in cnn.articles.keys()] + [title for title in usa_today.articles.keys()]],
+        'Title': [],
+        'Summary': [],
+        'URL': []}
+
+

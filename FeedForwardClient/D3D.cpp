@@ -140,7 +140,8 @@ namespace D3D
 		int charPerLine = (int)(w / (size.right - size.left));
 		
 		std::string tmp = "";
-		for (int ind = 0; ind < strlen(string); ind++)
+		int ind;
+		for (ind = 0; ind < strlen(string); ind++)
 		{
 			if (string[ind] == '|' || tmp.size() > charPerLine)
 			{
@@ -160,6 +161,9 @@ namespace D3D
 				tmp.push_back(string[ind]);
 			}
 		}
+
+		if(tmp.size() > 0)
+			D3D::DrawString(pDevice, pFont, x, y, color, tmp.c_str());
 
 	}
 

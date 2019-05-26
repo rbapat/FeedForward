@@ -26,6 +26,8 @@ Menu::Menu(LPDIRECT3DDEVICE9 pDevice, HWND hWnd)
 
 void Menu::readRSSConfig()
 {
+	rssLinks.clear();
+
 	tinyxml2::XMLDocument doc;
 	doc.LoadFile("C:\\Users\\Rohan\\Desktop\\RSSFeeds.xml");
 
@@ -44,6 +46,7 @@ void Menu::render(D3DPRESENT_PARAMETERS presentParams)
 	mouse->curClicked = GetAsyncKeyState(VK_LBUTTON);
 	mouse->prevRClick = mouse->rClick;
 	mouse->rClick = GetAsyncKeyState(VK_RBUTTON);
+
 	if ((drag && mouse->curClicked) || (!mouse->prevClicked && mouse->curClicked && inRect(mouse->cursor, rootx, rooty, titleWidth, TITLE_HEIGHT)))
 	{
 		if (!drag)

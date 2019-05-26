@@ -37,19 +37,14 @@ public:
 private:
 	LPDIRECT3DDEVICE9 pDevice;
 	LPD3DXFONT menuDataFont = NULL, menuTitleFont = NULL;
+	POINT dragPos, dragRoot;
 	HWND hWnd;
 	std::vector<RSSTab *> rssLinks;
 	MouseClick* mouse;
 	PyComm* scraper;
-
 	bool drag;
-	POINT dragPos, dragRoot;
-	int rootx, rooty;
-	int rssInd;
-	int titleWidth;
-	int tt;
-	int startInd;
-	
+	int rootx, rooty, rssInd, titleWidth, tt, startInd;
+
 	void readRSSConfig();
 };
 

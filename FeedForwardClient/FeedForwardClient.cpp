@@ -28,12 +28,13 @@ LRESULT __stdcall HookCallback(int nCode, WPARAM wParam, LPARAM lParam)
 			}
 			else
 			{
+				SetWindowPos(hWnd, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOACTIVATE | SWP_NOMOVE | SWP_NOSIZE);
 				SetForegroundWindow(hWnd);
 				fore = true;
 			}
 		}
 
-		else if (kbdStruct.vkCode == VK_END && fore)
+		else if (kbdStruct.vkCode == VK_END && GetForegroundWindow() == hWnd)
 		{
 			exit(1);
 		}

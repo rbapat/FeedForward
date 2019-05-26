@@ -45,14 +45,10 @@ public:
 	void renderTooltip(LPDIRECT3DDEVICE9 pDevice, LPD3DXFONT pFont, MouseClick* mouse, PyComm *scraper, int basex, int basey, int rootx, int rooty, int height, int menuWidth);
 	void disable();
 private:
-	std::string tabName;
-	std::string tabLink;
+	std::string tabName, tabLink;
 	std::vector<RSSInfo*> vecRSS;
-	int ttIndex;
-	int page;
-	bool TT, exiting;
-	bool tooltip, sent;
-	int alpha;
+	int ttIndex, page, alpha;
+	bool TT, exiting, tooltip, sent;
 	char* summaryData;
 
 	std::vector<RSSInfo*> ParseRSS(const char* rssLink);

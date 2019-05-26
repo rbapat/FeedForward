@@ -91,8 +91,6 @@ bool RSSTab::render(LPDIRECT3DDEVICE9 pDevice, LPD3DXFONT pFont, MouseClick* mou
 		int ind = page * numPerPage + x;
 		if (rooty + TEXT_DY > max || ind == vecRSS.size())
 			break;
-
-		
 		
 		RECT size = D3D::StringSize(pDevice, pFont, vecRSS.at(ind)->articleTitle);
 		

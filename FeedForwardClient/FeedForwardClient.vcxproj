@@ -166,7 +166,6 @@
     <ClInclude Include="D3D.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="PyComm.h" />
-    <ClInclude Include="RSS.h" />
     <ClInclude Include="RSSTab.h" />
     <ClInclude Include="tinyxml2.h" />
   </ItemGroup>

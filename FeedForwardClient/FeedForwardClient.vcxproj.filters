@@ -47,9 +47,6 @@
     <ClInclude Include="PyComm.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="RSS.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="RSSTab.h">
       <Filter>Header Files</Filter>
     </ClInclude>

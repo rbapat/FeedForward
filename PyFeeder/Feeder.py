@@ -1,4 +1,5 @@
 from newspaper import Article 
+from textblob import TextBlob
 import threading
 import socket
 
@@ -10,11 +11,10 @@ def fetch_data(link):
 	article.parse()
 	article.nlp()
 
-	summary = article.summary.replace('\n', '|').encode()
-	return summary
+	return article.summary.replace('\n', '|').encode()
 
 def send_data(data, sock):
-	iLen =	str(len(data)).encode()
+	iLen =str(len(data)).encode()
 	sock.sendall(iLen)
 	sock.sendall(data)
 

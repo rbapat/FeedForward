@@ -21,7 +21,7 @@ def main():
 			article.download()
 			article.parse()
 			article.nlp()
-
+			
 			summary = article.summary.replace('\n', '|').encode()
 
 			iLen = str(len(summary)).encode()

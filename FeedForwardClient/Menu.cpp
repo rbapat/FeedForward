@@ -32,7 +32,7 @@ void Menu::readRSSConfig()
 	rssLinks.clear();
 
 	tinyxml2::XMLDocument doc;
-	doc.LoadFile("C:\\Users\\Rohan\\Desktop\\RSSFeeds.xml");
+	doc.LoadFile("RSSFeeds.xml");
 
 	auto element = doc.FirstChildElement("RSS");
 	do

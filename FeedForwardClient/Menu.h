@@ -43,7 +43,7 @@ private:
 	MouseClick* mouse;
 	PyComm* scraper;
 	bool drag;
-	int rootx, rooty, rssInd, titleWidth, tt, startInd;
+	int rootx, rooty, rssInd, titleWidth, tt, startInd, lastUpdate, index;
 
 	void readRSSConfig();
 };

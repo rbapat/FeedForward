@@ -13,19 +13,22 @@ Menu::Menu(LPDIRECT3DDEVICE9 pDevice, HWND hWnd)
 	rooty = 0;
 	tt = -1;
 	rssInd = -1;
+	lastUpdate = 0;
 
 
 	
 	drag = false;
 
 
-	readRSSConfig();
 	initializeFonts();
 	scraper = new PyComm(5555);
 }
 
 void Menu::readRSSConfig()
 {
+	if (GetTickCount() - lastUpdate < 600000)
+		return;
+
 	rssLinks.clear();
 
 	tinyxml2::XMLDocument doc;
@@ -36,15 +39,18 @@ void Menu::readRSSConfig()
 	{
 		rssLinks.push_back(new RSSTab(element->FirstChildElement("title")->GetText(), element->FirstChildElement("link")->GetText()));
 	} while ((element = element->NextSiblingElement("RSS")) && element);
+
+	lastUpdate = GetTickCount();
 }
 
 void Menu::render(D3DPRESENT_PARAMETERS presentParams)
 {
+	readRSSConfig();
 	GetCursorPos(&mouse->cursor);
 	
 	mouse->prevClicked = mouse->curClicked;
-	mouse->curClicked = GetAsyncKeyState(VK_LBUTTON);
 	mouse->prevRClick = mouse->rClick;
+	mouse->curClicked = GetAsyncKeyState(VK_LBUTTON);
 	mouse->rClick = GetAsyncKeyState(VK_RBUTTON);
 
 	if ((drag && mouse->curClicked) || (!mouse->prevClicked && mouse->curClicked && inRect(mouse->cursor, rootx, rooty, titleWidth, TITLE_HEIGHT)))
@@ -81,7 +87,7 @@ void Menu::render(D3DPRESENT_PARAMETERS presentParams)
 		bool cursorIn = inRect(mouse->cursor, rootx + renderX, rooty + renderY, TAB_WIDTH, TAB_HEIGHT);
 		D3DCOLOR color = cursorIn ? D3DCOLOR_DARKGREY : D3DCOLOR_DARKISHGREY;
 
-		if (cursorIn && mouse->curClicked && !mouse->prevClicked)
+		if ((cursorIn && mouse->curClicked && !mouse->prevClicked))
 		{
 			if (rssInd == -1)
 			{

@@ -70,7 +70,7 @@ class BiasAnalyzer:
         for entity in result.entities:
             for mention in entity.mentions:
                 if entity.name in self.keyword_list:
-                    print("    ", entity.name, "Magnitude:", mention.sentiment.magnitude, "Sentiment:", mention.sentiment.score)
+                    print("    Keyword:", entity.name, "Magnitude:", mention.sentiment.magnitude, "Sentiment:", mention.sentiment.score)
                     if entity.name in list(self.political_keyword_dict.values())[1] and mention.sentiment.score > 0:
                         liberal_score += abs(mention.sentiment.score)
                         liberal_words += 1
@@ -95,8 +95,11 @@ class BiasAnalyzer:
         if liberal_words > 0:
             liberal_score = liberal_score / liberal_words
 
+        if conservative_words == 0 and liberal_words == 0:
+            return "Not Enough Info"
+
         if abs(conservative_score - liberal_score) < .2:
-            return "Moderate or Not Enough Info"
+            return "Moderate"
         elif (conservative_score - liberal_score) > .2 and (conservative_score - liberal_score) < .7:
             return "Conservative"
         elif (liberal_score - conservative_score) > .2 and (liberal_score - conservative_score) < .7:
@@ -126,11 +129,13 @@ class BiasAnalyzer:
 test_analyzer = BiasAnalyzer()
 print("Test Article")
 test_analyzer.analyze_bias("test_article")
+print("Right Article 1")
+test_analyzer.analyze_bias("right2")
+print("Right Article 2")
+test_analyzer.analyze_bias("right1")
 print("Left Article 1")
 test_analyzer.analyze_bias("left1")
 print("Left Article 2")
 test_analyzer.analyze_bias("left2")
-print("Right Article 1")
-test_analyzer.analyze_bias("right1")
-print("Right Article 2")
-test_analyzer.analyze_bias("right2")
+
+

@@ -1,0 +1,25 @@
+abortion,Liberal
+affirmative action,Liberal
+death penalty,Conservative
+free market,Conservative
+regulated economy,Liberal
+public school,Liberal
+school voucher,Conservative
+fossil fuels,Conservative
+alternative energy,Liberal
+euthanasia,Liberal
+global warming,Liberal
+climate change,Liberal
+gun control,Liberal
+government healthcare,Liberal
+free market healthcare,Conservative
+amnesty,Liberal
+undocumented immigrants,Liberal
+private property rights,Conservative
+same-sex marriage,Liberal
+social security,Liberal
+higher taxes,Liberal
+lower taxes,Conservative
+bigger government,Liberal
+smaller government,Conservative
+welfare,Liberal

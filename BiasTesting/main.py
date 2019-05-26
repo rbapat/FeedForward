@@ -9,17 +9,17 @@ import six
 import os
 from google.oauth2 import service_account
 
+
 class BiasAnalyzer:
-    def __init__(self, input_file):
-        self.input_file = input_file
+    def __init__(self):
         self.political_keyword_dict = {}
         self.keyword_list = []
-        self.readKeywords("political_keywords.txt")
+        self.readKeywords("politcal_keywords.txt")
         self.createKeywordList()
 
     def readKeywords(self, keyword_file):
-        keyword_file = open(keyword_file, 'r')
-        political_keywords = keyword_file.readlines();
+        my_file = open(keyword_file, 'r')
+        political_keywords = my_file.readlines();
         temp = [];
 
         for line in political_keywords:
@@ -70,17 +70,17 @@ class BiasAnalyzer:
         for entity in result.entities:
             for mention in entity.mentions:
                 if entity.name in self.keyword_list:
-                    print(entity.name, mention.sentiment.magnitude, mention.sentiment.score)
+                    print("    ", entity.name, "Magnitude:", mention.sentiment.magnitude, "Sentiment:", mention.sentiment.score)
                     if entity.name in list(self.political_keyword_dict.values())[1] and mention.sentiment.score > 0:
                         liberal_score += abs(mention.sentiment.score)
                         liberal_words += 1
-                    elif entity.name in list(self.political_keyword_dict.values.values())[0] and mention.sentiment.score < 0:
+                    elif entity.name in list(self.political_keyword_dict.values())[0] and mention.sentiment.score < 0:
                         liberal_score += mention.sentiment.score
                         liberal_words += 1
-                    elif entity.name in list(self.political_keyword_dict.values.values())[0] and mention.sentiment.score > 0:
+                    elif entity.name in list(self.political_keyword_dict.values())[0] and mention.sentiment.score > 0:
                         conservative_score += mention.sentiment.score
                         conservative_words += 1
-                    elif entity.name in list(self.political_keyword_dict.values.values())[1] and mention.sentiment.score < 0:
+                    elif entity.name in list(self.political_keyword_dict.values())[1] and mention.sentiment.score < 0:
                         conservative_score += abs(mention.sentiment.score)
                         conservative_words += 1
 
@@ -96,7 +96,7 @@ class BiasAnalyzer:
             liberal_score = liberal_score / liberal_words
 
         if abs(conservative_score - liberal_score) < .2:
-            return "Moderate"
+            return "Moderate or Not Enough Info"
         elif (conservative_score - liberal_score) > .2 and (conservative_score - liberal_score) < .7:
             return "Conservative"
         elif (liberal_score - conservative_score) > .2 and (liberal_score - conservative_score) < .7:
@@ -119,6 +119,18 @@ class BiasAnalyzer:
     # based on positive/negative sentiments toward certain keywords like social security, amnesty, free market, climate change, gun control, etc.
     def analyze_bias(self, filename):
         file = open(filename, 'r')
-        return self.entity_sentiment_text(''.join(file.readlines()))
+        print(self.entity_sentiment_text(''.join(file.readlines())))
+        print()
 
 
+test_analyzer = BiasAnalyzer()
+print("Test Article")
+test_analyzer.analyze_bias("test_article")
+print("Left Article 1")
+test_analyzer.analyze_bias("left1")
+print("Left Article 2")
+test_analyzer.analyze_bias("left2")
+print("Right Article 1")
+test_analyzer.analyze_bias("right1")
+print("Right Article 2")
+test_analyzer.analyze_bias("right2")
